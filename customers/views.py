@@ -22,8 +22,8 @@ def create_superuser(request):
     if get_user_model().objects.count() == 0:
         get_user_model().objects.create_superuser(
             'admin', 
-            'deine@email.com',
-            'dein-sicheres-passwort'
+            'claudia.daneder@hotmail.com',
+            'admin123'
         )
         return HttpResponse("Superuser created!")
     return HttpResponse("Superuser already exists!")

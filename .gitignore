@@ -1,0 +1,43 @@
+*.pem
+*.ppk
+id_rsa
+id_rsa.pub
+id_ed25519
+id_ed25519.pub
+*.key
+.ssh/
+.env
+*.env
+__pycache__/
+**/__pycache__/
+*.pyc
+venv/
+env/
+# Database
+db.sqlite3
+*.sqlite3
+*.db
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual Environment
+venv/
+env/
+
+# Media Files (user-uploaded content)
+media/
+
+# Database
+db.sqlite3
+*.sqlite3
+videoflix_backend/db.json
+
+# Static files (collected)
+static/
+
+# Local development
+.env
+*.log

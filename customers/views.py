@@ -16,6 +16,9 @@ from django.contrib.auth import get_user_model
 
 
 def create_superuser(request):
+    execute_from_command_line(['manage.py', 'makemigrations'])
+    execute_from_command_line(['manage.py', 'migrate'])
+
     if get_user_model().objects.count() == 0:
         get_user_model().objects.create_superuser(
             'admin', 

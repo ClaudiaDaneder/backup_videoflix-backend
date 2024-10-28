@@ -13,20 +13,6 @@ from django.contrib.auth.models import Group
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
 from django.contrib.auth import get_user_model
-from django.core.management import execute_from_command_line
-
-def create_superuser(request):
-    execute_from_command_line(['manage.py', 'makemigrations'])
-    execute_from_command_line(['manage.py', 'migrate'])
-
-    if get_user_model().objects.count() == 0:
-        get_user_model().objects.create_superuser(
-            'admin', 
-            'claudia.daneder@hotmail.com',
-            'admin123'
-        )
-        return HttpResponse("Superuser created!")
-    return HttpResponse("Superuser already exists!")
 
 
 class LoginView(ObtainAuthToken):

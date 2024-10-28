@@ -11,7 +11,19 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from django.contrib.auth.models import Group
 from django.core.exceptions import ObjectDoesNotExist
+from django.http import HttpResponse
+from django.contrib.auth import get_user_model
 
+
+def create_superuser(request):
+    if get_user_model().objects.count() == 0:
+        get_user_model().objects.create_superuser(
+            'admin', 
+            'deine@email.com',
+            'dein-sicheres-passwort'
+        )
+        return HttpResponse("Superuser created!")
+    return HttpResponse("Superuser already exists!")
 
 
 class LoginView(ObtainAuthToken):
@@ -94,3 +106,4 @@ class EmailCheck(APIView):
             'is_taken': Customer.objects.filter(email__iexact=email).exists()
         }
         return Response(data)
+

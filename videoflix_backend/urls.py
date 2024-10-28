@@ -24,7 +24,7 @@ urlpatterns = [
     path('activate/', ActivateAccountView.as_view()),
     path('check_username/', UsernameCheck.as_view()),
     path('check_email/', EmailCheck.as_view()),
-    path('create-superuser/', create_superuser, name='create-superuser'),
+    path('create-superuser/', create_superuser),
 ] 
 
 

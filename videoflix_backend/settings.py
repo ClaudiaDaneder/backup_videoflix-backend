@@ -1,6 +1,6 @@
 import os
 from pathlib import Path
-from decouple import config
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -10,16 +10,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-yl^p%5k(jsd30w0iyh$cr4og-j2s3)5_f22qo_&+4t&r38e&#-'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-yl^p%5k(jsd30w0iyh$cr4og-j2s3)5_f22qo_&+4t&r38e&#-')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = [
-    '34.65.22.12',
-    'videoflix-backend.claudia-daneder.com',
-    '127.0.0.1'
-]
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',')
 
 
 # Application definition
@@ -47,10 +43,7 @@ INSTALLED_APPS = [
 
 AUTH_USER_MODEL = "customers.Customer"
 
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:4200',
-    'https://videoflix.claudia-daneder.com',
-]
+CORS_ALLOWED_ORIGINS = os.environ.get('CORS_ALLOWED_ORIGINS', '').split(',')
 
 SITE_ID = 1
 
@@ -161,16 +154,17 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = 'media/'
 
 CACHES = {
-          'default': {
-              'BACKEND': 'django_redis.cache.RedisCache',
-              'LOCATION': 'redis://127.0.0.1:6379/1',
-              'OPTIONS': {
-                  'CLIENT_CLASS': 'django_redis.client.DefaultClient',
-                  'PASSWORD': 'foobared',
-                },
-              'KEY_PREFIX': 'videoflix'
-              }
-          }
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': os.environ.get('REDIS_URL', 'redis://127.0.0.1:6379/1'),
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+            'PASSWORD': os.environ.get('REDIS_PASSWORD', 'foobared'),
+        },
+        'KEY_PREFIX': 'videoflix'
+    }
+}
+
 
 RQ_QUEUES = {
     'default': {
@@ -198,10 +192,10 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'vienna001.ssl.hosttech.eu'
-EMAIL_PORT = 465
-EMAIL_USE_SSL = True
-EMAIL_USE_TLS = False
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
-DEFAULT_FROM_EMAIL = 'videoflix@claudia-daneder.com'
+EMAIL_HOST = os.environ.get('EMAIL_HOST')
+EMAIL_PORT = int(os.environ.get('EMAIL_PORT', 465))
+EMAIL_USE_SSL = os.environ.get('EMAIL_USE_SSL', 'True') == 'True'
+EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', 'False') == 'True'
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')

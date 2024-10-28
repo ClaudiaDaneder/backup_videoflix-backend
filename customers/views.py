@@ -13,7 +13,7 @@ from django.contrib.auth.models import Group
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
 from django.contrib.auth import get_user_model
-
+from django.core.management import execute_from_command_line
 
 def create_superuser(request):
     execute_from_command_line(['manage.py', 'makemigrations'])

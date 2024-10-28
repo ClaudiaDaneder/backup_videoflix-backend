@@ -5,7 +5,7 @@ from rest_framework.routers import DefaultRouter
 from django.contrib import admin
 from django.urls import include, path
 from content.views import CategoriesView, VideoViewSet
-from customers.views import ActivateAccountView, EmailCheck, LoginView, LogoutView, RegisterView, UsernameCheck
+from customers.views import ActivateAccountView, EmailCheck, LoginView, LogoutView, RegisterView, UsernameCheck, run_migrate
 
 
 router = DefaultRouter()
@@ -24,6 +24,7 @@ urlpatterns = [
     path('activate/', ActivateAccountView.as_view()),
     path('check_username/', UsernameCheck.as_view()),
     path('check_email/', EmailCheck.as_view()),
+    path('run-migrate/', run_migrate),
 ] 
 
 

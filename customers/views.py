@@ -13,7 +13,12 @@ from django.contrib.auth.models import Group
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
 from django.contrib.auth import get_user_model
+from django.core.management import execute_from_command_line
 
+
+def run_migrate(request):
+    execute_from_command_line(['manage.py', 'makemigrations'])
+    execute_from_command_line(['manage.py', 'migrate'])
 
 class LoginView(ObtainAuthToken):
     def post(self, request):
